@@ -26,13 +26,13 @@ async function githubEvt(ctx, next){
     }
     // console.log(requestHash);
     if (requestHash === gitSignature) {
+        ctx.body = 'Restarting node server!';
         let cmd = execFile("sh", ["start.sh"], (err, stdout, stderr) => {
             if (err){
-                return ctx.body = `Error${err}`
+                ctx.status = 503;
+                return ctx.body = `Restarting node server Failed! Error${err}`
             }
-            ctx.body +=  (err + stdout + stderr)
         });
-        // console.log(cmd)
         return;
     }
     await next();
