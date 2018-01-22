@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# export your github key or your gitlab key
+# because of GitHub and GitLab handle the Token in
+# defferent way, so there should be two ENV variable
+
+# pick up your way and comment one of the next two line
+# export GITHUB_SECRET="123"
+# export GITLIB_SECRET="123"
+
+echo 'Start Update Server'
+git pull
+npm install
+web_process=`ps -ef | grep -e "index\.js$" | awk '{print $2}'`
+echo 'pid is' ${web_process}
+if [ web_process ]; then
+    kill ${web_process}
+fi
+nohup node index.js &! > nohup.out
