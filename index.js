@@ -14,8 +14,6 @@ async function githubEvt(ctx, next){
     //
     let requestHash;
     let gitSignature;
-    debugger;
-    console.log(GITLAB_TOKEN, GITHUB_TOKEN);
     if (GITLAB_TOKEN) {
         requestHash = GITLAB_TOKEN;
         gitSignature = ctx.header['X-Gitlab-Token'];
