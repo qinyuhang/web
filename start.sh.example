@@ -10,9 +10,10 @@
 echo 'Start Update Server'
 git pull
 npm install
-web_process=`ps -ef | grep -e "index\.js$" | awk '{print $2}'`
-echo 'pid is' ${web_process}
-if [ web_process ]; then
-    kill ${web_process}
+
+if [ -f node_pid.txt ]; then
+    echo 'kill PID' `cat node_pid.txt`
+    kill `cat node_pid.txt`
 fi
-nohup node index.js &! > nohup.out
+
+nohup node index.js > nohup.out & echo $! > node_pid.txt
